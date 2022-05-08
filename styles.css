@@ -126,11 +126,13 @@ body {
 }
 
 .detailed-weather-section .forecast-box-container {
+    width: 60vw;
     display: grid;
-    grid-template-columns: repeat(2, 150px);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
     margin-top: 50px;
+    padding: 30px;
 }
 
 .forecast-box-container .forecast-box {
@@ -155,17 +157,19 @@ body {
 }
 
 .current-weather-highlights-display .current-weather-highlights-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(328px, 1fr));
+    justify-items: center;
     gap: 30px;
     margin-top: 50px;
+    width: 80vw;
 }
 
 .current-weather-highlights-display .highlights-box {
     background-color: #1e213a;
-    width: 328px;
     text-align: center;
     padding: 30px;
+    width: 328px;
 }
 
 .highlights-box > p {
