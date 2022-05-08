@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div class="preloader"></div>
+
+        <div class="current-weather-section">
+            <div class="container">
+                <div class="current-weather-container">
+                    <div class="location-bar">
+                        <input type="search" name="location-search" id="location-search" placeholder="Search for places">
+                        <span class="material-icons">my_location</span>
+                    </div>
+                    <div class="current-weather-display">
+                        <canvas id="current-weather-icon" width="200" height="200"></canvas>
+                        <div class="current-temperature-display">
+                            <h1 class="temperature-degrees">15</h1>
+                            <span>°C</span>
+                        </div>
+                        <p>Feels like <span class="feels-like-temperature"></span></p>
+                        <h2 class="temperature-description">Shower</h2>
+                        <div class="current-date-display">
+                            <p>Today</p>
+                            <p>|</p>
+                            <p class="current-date">Current Date</p>
+                        </div>
+                        <div class="current-location-display">
+                            <span class="material-icons">location_on</span>
+                            <p class="current-location">Current Location</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-menu-container">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="detailed-weather-section">
+            <div class="container">
+
+                <div class="one-week-forecast-weather-display">
+                    <h2>One Week Weather Forecast</h2>
+                    <div class="forecast-box-container">
+                        <div class="forecast-box">
+                            <h3 class="date">Tomorrow</h3>
+                            <canvas id="forecast-weather-icon" width="70" height="70"></canvas>
+                            <div class="min-max-temperature-container">
+                                <div class="highest-temperature">
+                                    <p class="temperature-degrees">20</p>
+                                    <span>°C</span>
+                                </div>
+                                <div class="lowest-temperature">
+                                    <p class="temperature-degrees">15</p>
+                                    <span>°C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast-box">
+                            <h3 class="date">as</h3>
+                            <canvas id="forecast-weather-icon" width="70" height="70"></canvas>
+                            <div class="min-max-temperature-container">
+                                <div class="highest-temperature">
+                                    <p class="temperature-degrees">20</p>
+                                    <span>°C</span>
+                                </div>
+                                <div class="lowest-temperature">
+                                    <p class="temperature-degrees">15</p>
+                                    <span>°C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast-box">
+                            <h3 class="date">adaw</h3>
+                            <canvas id="forecast-weather-icon" width="70" height="70"></canvas>
+                            <div class="min-max-temperature-container">
+                                <div class="highest-temperature">
+                                    <p class="temperature-degrees">20</p>
+                                    <span>°C</span>
+                                </div>
+                                <div class="lowest-temperature">
+                                    <p class="temperature-degrees">15</p>
+                                    <span>°C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast-box">
+                            <h3 class="date">awda</h3>
+                            <canvas id="forecast-weather-icon" width="70" height="70"></canvas>
+                            <div class="min-max-temperature-container">
+                                <div class="highest-temperature">
+                                    <p class="temperature-degrees">20</p>
+                                    <span>°C</span>
+                                </div>
+                                <div class="lowest-temperature">
+                                    <p class="temperature-degrees">15</p>
+                                    <span>°C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast-box">
+                            <h3 class="date">waddwd</h3>
+                            <canvas id="forecast-weather-icon" width="70" height="70"></canvas>
+                            <div class="min-max-temperature-container">
+                                <div class="highest-temperature">
+                                    <p class="temperature-degrees">20</p>
+                                    <span>°C</span>
+                                </div>
+                                <div class="lowest-temperature">
+                                    <p class="temperature-degrees">15</p>
+                                    <span>°C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast-box">
+                            <h3 class="date">awda</h3>
+                            <canvas id="forecast-weather-icon" width="70" height="70"></canvas>
+                            <div class="min-max-temperature-container">
+                                <div class="highest-temperature">
+                                    <p class="temperature-degrees">20</p>
+                                    <span>°C</span>
+                                </div>
+                                <div class="lowest-temperature">
+                                    <p class="temperature-degrees">15</p>
+                                    <span>°C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast-box">
+                            <h3 class="date">awda</h3>
+                            <canvas id="forecast-weather-icon" width="70" height="70"></canvas>
+                            <div class="min-max-temperature-container">
+                                <div class="highest-temperature">
+                                    <p class="temperature-degrees">20</p>
+                                    <span>°C</span>
+                                </div>
+                                <div class="lowest-temperature">
+                                    <p class="temperature-degrees">15</p>
+                                    <span>°C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="current-weather-highlights-display">
+                    <h2>Today's Highlights</p>
+                    <div class="current-weather-highlights-container">
+                        <div class="wind-status-box highlights-box">
+                            <p>Wind Status</p>
+                            <div class="wind-status-container value-container">
+                                <h1 class="wind-status-value">7</h1>
+                                <span>mph</span>
+                            </div>
+                            <div class="wind-direction-container">
+                                <span class="material-icons">explore</span>
+                                <p class="wind-direction-value">WSW</p>
+                            </div>
+                        </div>
+                        <div class="humidity-box highlights-box">
+                            <p>Humidity</p>
+                            <div class="humidity-container value-container">
+                                <h1 class="humidity-value">84</h1>
+                                <span>%</span>
+                            </div>
+                            <div class="humidity-percentage-bar-container">
+                                <div class="percentage-info">
+                                    <p>0</p>
+                                    <p>50</p>
+                                    <p>100</p>
+                                </div>
+                                <div class="percentage-bar">
+                                    <div class="percentage-value"></div>
+                                </div>
+                                <p>%</p>
+                            </div>
+                        </div>
+                        <div class="visibility-box highlights-box">
+                            <p>Visibility</p>
+                            <div class="visibility-container value-container">
+                                <h1 class="visibility-value">6,4</h1>
+                                <span>Km</span>
+                            </div>
+                        </div>
+                        <div class="air-pressure-box highlights-box">
+                            <p>Air Pressure</p>
+                            <div class="air-pressure--container value-container">
+                                <h1 class="air-pressure-value">998</h1>
+                                <span>mb</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Created By Edison Liem | © 2022 All right reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/skycons.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
