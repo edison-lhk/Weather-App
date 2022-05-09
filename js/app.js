@@ -1,6 +1,6 @@
 // Current Weather Section
 const preloader = document.querySelector('.preloader');
-const locationSearchBar = document.querySelector('input#location-search');
+const openMenuBtn = document.querySelector('button.location-search-btn');
 const currentLocationBtn = document.querySelector('.location-bar > .material-icons');
 const currentWeatherIcon = document.querySelector('canvas#current-weather-icon');
 const currentTemp = document.querySelector('.temperature-degrees');
@@ -8,6 +8,12 @@ const currentFeelsLikeTemp = document.querySelector('.feels-like-temperature');
 const currentTempDescription = document.querySelector('.current-weather-section .temperature-description')
 const currentDate = document.querySelector('.current-date')
 const currentLocation = document.querySelector('.current-location');
+
+// Search Menu Section
+const searchMenu = document.querySelector('.search-menu-container');
+const closeMenuBtn = document.querySelector('.close-menu-btn');
+const locationSearchBar = document.querySelector('input#location-search');
+const searchSubmitBtn = document.querySelector('button.submit-search');
 
 // One Week Forecast Weather Section
 const forecastBoxes = Array.from(document.querySelectorAll('.forecast-box'));
@@ -24,27 +30,38 @@ const humidityBoxPercentageBar = document.querySelector('.percentage-value');
 const visibilityBoxValue = document.querySelector('.visibility-value');
 const airPressureBoxValue = document.querySelector('.air-pressure-value');
 
+// Load user's location weather info every time user entered the page
 window.addEventListener('load', function() {
     displayCurrentLocationWeather();
     closeLoadingPage();
 });
 
-locationSearchBar.addEventListener('change', async function(e) {
 
-    if (e.target.value != '') {
+// Display user's location weather info when user clicked on the button
+currentLocationBtn.addEventListener('click', displayCurrentLocationWeather);
+
+openMenuBtn.addEventListener('click', () => {
+    searchMenu.classList.add('active-menu');
+})
+
+closeMenuBtn.addEventListener('click', () => {
+    searchMenu.classList.remove('active-menu');
+})
+
+// Display desired location weather info when user searched for a particular location
+searchSubmitBtn.addEventListener('click', async function() {
+
+    if (locationSearchBar.value != '') {
         let latitude;
         let longitude;
-        console.log(e.target.value);
-        [latitude, longitude] = await convertLocationNameToGeoCoordinates(e.target.value);
+        [latitude, longitude] = await convertLocationNameToGeoCoordinates(locationSearchBar.value.trim());
         displayLocationWeather(latitude, longitude);
-        e.target.value = '';
+        locationSearchBar.value = '';
     } else {
         return;
     }
 
 })
-
-currentLocationBtn.addEventListener('click', displayCurrentLocationWeather);
 
 // Close the loading page after the current weather information has rendered
 function closeLoadingPage() {
@@ -96,10 +113,6 @@ async function displayLocationWeather(latitude, longitude) {
     const oneCallInfoReponse = await fetch(oneCallAPI, {mode: 'cors'});
 
     const oneCallInfo = await oneCallInfoReponse.json();
-
-    console.log(currentWeatherInfo);
-
-    console.log(oneCallInfo);
 
     // Display current weather information
             
