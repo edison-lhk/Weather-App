@@ -182,6 +182,7 @@ body {
     font-size: 17px;
     color: #E7E7EB;
     all: unset;
+    width: 45vw;
 }
 
 .search-menu-container .search-bar > #location-search::placeholder {
@@ -214,6 +215,18 @@ input[type="search"]::-webkit-search-results-decoration {
     position: absolute;
     left: 50%;
     transform: translateX(-47%);
+}
+
+.search-location-suggestions-container .search-location-suggestions {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.search-location-suggestions-container .search-location-suggestions:hover {
+    border: 1px solid #616475;
 }
 
 .detailed-weather-section .container {
@@ -259,7 +272,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .current-weather-highlights-display .current-weather-highlights-container {
     width: 80vw;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(328px, 1fr));
     justify-items: center;
     gap: 50px;
     margin-top: 50px;

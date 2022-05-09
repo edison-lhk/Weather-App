@@ -15,7 +15,7 @@ const closeMenuBtn = document.querySelector('.close-menu-btn');
 const locationSearchBar = document.querySelector('input#location-search');
 const searchSubmitBtn = document.querySelector('button.submit-search');
 const searchSuggestionsContainer = document.querySelector('.search-location-suggestions-container');
-const searchSuggestionsBoxes = document.querySelectorAll('.search-location-suggestions');
+const searchSuggestionsDisplay = Array.from(document.querySelectorAll('.search-location-suggestions'));
 
 // One Week Forecast Weather Section
 const forecastBoxes = Array.from(document.querySelectorAll('.forecast-box'));
@@ -50,27 +50,23 @@ openMenuBtn.addEventListener('click', () => {
 
 closeMenuBtn.addEventListener('click', () => {
     searchMenu.classList.remove('active-menu');
+    locationSearchBar.value = '';
 })
 
 // Display search location suggestions when user type sth in the search bar
-locationSearchBar.addEventListener('change', async function() {
-
-    if (locationSearchBar.value != '') {
-        searchSuggestionsContainer.innerHTML = '';
-        findLocationName(locationSearchBar.value);
-    } else {
-        return;
-    }
-
-});
-
 locationSearchBar.addEventListener('keyup', async function() {
 
     if (locationSearchBar.value != '') {
-        searchSuggestionsContainer.innerHTML = '';
+        searchSuggestionsDisplay.forEach(box => {
+            box.innerHTML = '';
+            box.style.display = 'none';
+        })
         findLocationName(locationSearchBar.value);
     } else {
-        return;
+        searchSuggestionsDisplay.forEach(box => {
+            box.innerHTML = '';
+            box.style.display = 'none';
+        });
     }
 
 });
@@ -91,8 +87,18 @@ searchSubmitBtn.addEventListener('click', async function() {
 
 });
 
+// Output location search result when user clicked on a location recommedation box
+searchSuggestionsDisplay.forEach(box => {
+    box.addEventListener('click', () => {
+        locationSearchBar.value = box.firstChild.textContent;
+        updateLocationWeather(box);
+        setTimeout(() => {searchMenu.classList.remove('active-menu')}, 800);
+        locationSearchBar.value = '';
+    })
+})
+
 // Update location weather info every 30 secs
-setInterval(updateLocationWeather, 30000);
+setInterval(updateLocationWeather(currentLocation), 30000);
 
 // Close the loading page after the current weather information has rendered
 function closeLoadingPage() {
@@ -115,9 +121,6 @@ async function findLocationName(searchValue) {
     const locationInfo = await reponse.json();
 
     for (let i = 0; i < locationInfo.length; i++) {
-        locationDisplay = document.createElement('div');
-        locationDisplay.style.cssText = 'display: flex; align-items: center; justify-content: space-between; border: 1px solid #616475; padding: 10px 15px; cursor: pointer;';
-        locationDisplay.classList.add('search-location-suggestions');
 
         locationValue = document.createElement('p');
         locationValue.style.cssText = 'font-size: 16px;';
@@ -127,11 +130,10 @@ async function findLocationName(searchValue) {
         locationIcon.classList.add('material-icons');
         locationIcon.textContent = 'navigate_next';
 
-        locationDisplay.appendChild(locationValue);
-        locationDisplay.appendChild(locationIcon);
-        searchSuggestionsContainer.appendChild(locationDisplay);
+        searchSuggestionsDisplay[i].appendChild(locationValue);
+        searchSuggestionsDisplay[i].appendChild(locationIcon);
+        searchSuggestionsDisplay[i].style.display = 'flex';
     }
-    
 }
 
 // Convert the location user searched to Geographical Coordinates
@@ -215,9 +217,9 @@ function displayCurrentLocationWeather() {
 }
 
 // Update the location weather info
-async function updateLocationWeather() {
+async function updateLocationWeather(location) {
     let latitude, longitude, cityName, countryName;
-    [cityName, countryName] = currentLocation.textContent.split(', ');
+    [cityName, countryName] = location.textContent.split(', ');
     [latitude, longitude] = await convertLocationNameToGeoCoordinates(cityName, countryName);
     displayLocationWeather(latitude, longitude);
 }
