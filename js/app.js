@@ -15,6 +15,7 @@ const closeMenuBtn = document.querySelector('.close-menu-btn');
 const locationSearchBar = document.querySelector('input#location-search');
 const searchSubmitBtn = document.querySelector('button.submit-search');
 const searchSuggestionsContainer = document.querySelector('.search-location-suggestions-container');
+const searchSuggestionsBoxes = document.querySelectorAll('.search-location-suggestions');
 
 // One Week Forecast Weather Section
 const forecastBoxes = Array.from(document.querySelectorAll('.forecast-box'));
@@ -51,9 +52,22 @@ closeMenuBtn.addEventListener('click', () => {
     searchMenu.classList.remove('active-menu');
 })
 
+// Display search location suggestions when user type sth in the search bar
 locationSearchBar.addEventListener('change', async function() {
 
     if (locationSearchBar.value != '') {
+        searchSuggestionsContainer.innerHTML = '';
+        findLocationName(locationSearchBar.value);
+    } else {
+        return;
+    }
+
+});
+
+locationSearchBar.addEventListener('keyup', async function() {
+
+    if (locationSearchBar.value != '') {
+        searchSuggestionsContainer.innerHTML = '';
         findLocationName(locationSearchBar.value);
     } else {
         return;
@@ -103,12 +117,16 @@ async function findLocationName(searchValue) {
     for (let i = 0; i < locationInfo.length; i++) {
         locationDisplay = document.createElement('div');
         locationDisplay.style.cssText = 'display: flex; align-items: center; justify-content: space-between; border: 1px solid #616475; padding: 10px 15px; cursor: pointer;';
+        locationDisplay.classList.add('search-location-suggestions');
+
         locationValue = document.createElement('p');
         locationValue.style.cssText = 'font-size: 16px;';
         locationValue.textContent = `${locationInfo[i].name}, ${locationInfo[i].country}`;
+
         locationIcon = document.createElement('span');
         locationIcon.classList.add('material-icons');
         locationIcon.textContent = 'navigate_next';
+
         locationDisplay.appendChild(locationValue);
         locationDisplay.appendChild(locationIcon);
         searchSuggestionsContainer.appendChild(locationDisplay);

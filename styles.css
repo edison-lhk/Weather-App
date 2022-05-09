@@ -208,10 +208,9 @@ input[type="search"]::-webkit-search-results-decoration {
 .search-menu-container .search-location-suggestions-container {
     width: calc(60vw + 15px + 110px);
     margin-top: 50px;
-    height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 30px;
     position: absolute;
     left: 50%;
     transform: translateX(-47%);
