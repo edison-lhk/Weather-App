@@ -130,7 +130,7 @@ body {
     background: #1e213a;
     padding: 15px;
     height: 100vh;
-    width: 100%;
+    width: auto;
     order: 1;
     position: fixed;
     top: 0;
@@ -155,8 +155,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 70px;
     width: 100%;
+    margin-top: 70px;
 }
 
 .search-menu-container .search-bar {
@@ -183,6 +183,12 @@ body {
 
 .search-menu-container .search-bar > #location-search::placeholder {
     color: #616475;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { 
+    display: none; 
 }
 
 .search-menu-container .search-bar-container > .submit-search {
