@@ -14,6 +14,7 @@ const searchMenu = document.querySelector('.search-menu-container');
 const closeMenuBtn = document.querySelector('.close-menu-btn');
 const locationSearchBar = document.querySelector('input#location-search');
 const searchSubmitBtn = document.querySelector('button.submit-search');
+const searchSuggestionsContainer = document.querySelector('.search-location-suggestions-container');
 
 // One Week Forecast Weather Section
 const forecastBoxes = Array.from(document.querySelectorAll('.forecast-box'));
@@ -37,9 +38,11 @@ window.addEventListener('load', function() {
 });
 
 
-// Display user's location weather info when user clicked on the button
+// Display user's location weather info when user clicked on the current location button
 currentLocationBtn.addEventListener('click', displayCurrentLocationWeather);
 
+
+// Open and close search menu
 openMenuBtn.addEventListener('click', () => {
     searchMenu.classList.add('active-menu');
 })
@@ -47,6 +50,16 @@ openMenuBtn.addEventListener('click', () => {
 closeMenuBtn.addEventListener('click', () => {
     searchMenu.classList.remove('active-menu');
 })
+
+locationSearchBar.addEventListener('change', async function() {
+
+    if (locationSearchBar.value != '') {
+        findLocationName(locationSearchBar.value);
+    } else {
+        return;
+    }
+
+});
 
 // Display desired location weather info when user searched for a particular location
 searchSubmitBtn.addEventListener('click', async function() {
@@ -57,11 +70,15 @@ searchSubmitBtn.addEventListener('click', async function() {
         [latitude, longitude] = await convertLocationNameToGeoCoordinates(locationSearchBar.value.trim());
         displayLocationWeather(latitude, longitude);
         locationSearchBar.value = '';
+        setTimeout(() => {searchMenu.classList.remove('active-menu')}, 800);
     } else {
         return;
     }
 
-})
+});
+
+// Update location weather info every 30 secs
+setInterval(updateLocationWeather, 30000);
 
 // Close the loading page after the current weather information has rendered
 function closeLoadingPage() {
@@ -74,21 +91,35 @@ function closeLoadingPage() {
 
 }
 
-// Display the current location weather
-function displayCurrentLocationWeather() {
+// Find all related city/country list based on search value
+async function findLocationName(searchValue) {
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            displayLocationWeather(latitude, longitude);
-        })
+    const geocodingAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${searchValue}&limit=5&appid=ec021a840e27b53a39dd9bb4563c0c3c`;
+
+    const reponse = await fetch(geocodingAPI, {mode: 'cors'});
+
+    const locationInfo = await reponse.json();
+
+    for (let i = 0; i < locationInfo.length; i++) {
+        locationDisplay = document.createElement('div');
+        locationDisplay.style.cssText = 'display: flex; align-items: center; justify-content: space-between; border: 1px solid #616475; padding: 10px 15px; cursor: pointer;';
+        locationValue = document.createElement('p');
+        locationValue.style.cssText = 'font-size: 16px;';
+        locationValue.textContent = `${locationInfo[i].name}, ${locationInfo[i].country}`;
+        locationIcon = document.createElement('span');
+        locationIcon.classList.add('material-icons');
+        locationIcon.textContent = 'navigate_next';
+        locationDisplay.appendChild(locationValue);
+        locationDisplay.appendChild(locationIcon);
+        searchSuggestionsContainer.appendChild(locationDisplay);
     }
+    
 }
 
 // Convert the location user searched to Geographical Coordinates
-async function convertLocationNameToGeoCoordinates(cityName) {
-    const geocodingAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=ec021a840e27b53a39dd9bb4563c0c3c`;
+async function convertLocationNameToGeoCoordinates(cityName, countryName) {
+
+    const geocodingAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${countryName}&limit=1&appid=ec021a840e27b53a39dd9bb4563c0c3c`;
     
     const reponse = await fetch(geocodingAPI, {mode: 'cors'});
     
@@ -97,18 +128,19 @@ async function convertLocationNameToGeoCoordinates(cityName) {
     const geoCoordinates = [locationInfo[0].lat, locationInfo[0].lon];
 
     return geoCoordinates;
+
 }
 
 // Display the weather information for the respective location
 async function displayLocationWeather(latitude, longitude) {
 
-    const currentWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&exclude={part}&appid=ec021a840e27b53a39dd9bb4563c0c3c&units=metric`;
+    const currentWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=ec021a840e27b53a39dd9bb4563c0c3c&units=metric`;
 
     const currentWeatherInfoReponse = await fetch(currentWeatherAPI, {mode: 'cors'});
             
     const currentWeatherInfo = await currentWeatherInfoReponse.json();
 
-    const oneCallAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=ec021a840e27b53a39dd9bb4563c0c3c&units=metric`;
+    const oneCallAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=ec021a840e27b53a39dd9bb4563c0c3c&units=metric`;
 
     const oneCallInfoReponse = await fetch(oneCallAPI, {mode: 'cors'});
 
@@ -150,6 +182,26 @@ async function displayLocationWeather(latitude, longitude) {
     visibilityBoxValue.textContent = (currentWeatherInfo.visibility / 1000).toFixed(1);
 
     airPressureBoxValue.textContent = currentWeatherInfo.main.pressure;
+}
+
+// Display the current location weather
+function displayCurrentLocationWeather() {
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            displayLocationWeather(latitude, longitude);
+        })
+    }
+}
+
+// Update the location weather info
+async function updateLocationWeather() {
+    let latitude, longitude, cityName, countryName;
+    [cityName, countryName] = currentLocation.textContent.split(', ');
+    [latitude, longitude] = await convertLocationNameToGeoCoordinates(cityName, countryName);
+    displayLocationWeather(latitude, longitude);
 }
 
 class Icon {

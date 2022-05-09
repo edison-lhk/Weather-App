@@ -51,11 +51,12 @@ body {
 
 .location-bar > .location-search-btn {
     width: 161px;
-    height: 30px;
+    height: 40px;
     background-color: #6e707a;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     color: #E7E7EB;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .location-bar > #location-search::placeholder {
@@ -158,6 +159,7 @@ body {
     width: 100%;
     margin-top: 70px;
     margin-left: 14px;
+    position: relative;
 }
 
 .search-menu-container .search-bar {
@@ -199,6 +201,20 @@ input[type="search"]::-webkit-search-results-decoration {
     width: 110px;
     height: 50px;
     font-size: 17px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.search-menu-container .search-location-suggestions-container {
+    width: calc(60vw + 15px + 110px);
+    margin-top: 50px;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-47%);
 }
 
 .detailed-weather-section .container {
@@ -207,7 +223,6 @@ input[type="search"]::-webkit-search-results-decoration {
     flex-direction: column;
     align-items: center;
     padding-top: 60px;
-    padding-bottom: 60px;
     color: #E7E7EB;
 }
 
@@ -217,7 +232,7 @@ input[type="search"]::-webkit-search-results-decoration {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
-    margin-top: 50px;
+    margin-top: 30px;
     padding: 30px;
 }
 
@@ -245,7 +260,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .current-weather-highlights-display .current-weather-highlights-container {
     width: 80vw;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(328px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     justify-items: center;
     gap: 50px;
     margin-top: 50px;
@@ -332,10 +347,13 @@ input[type="search"]::-webkit-search-results-decoration {
     color: #a09fb1;
 }
 
-footer {
+.copyright-footer {
     border: 1px solid transparent;
     background-color: #100e1d;
     text-align: center;
     color: white;
+    margin-top: 60px;
 }
 
+@media only screen and (min-width: 800px) {
+}
