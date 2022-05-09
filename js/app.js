@@ -46,6 +46,11 @@ currentLocationBtn.addEventListener('click', displayCurrentLocationWeather);
 // Open and close search menu
 openMenuBtn.addEventListener('click', () => {
     searchMenu.classList.add('active-menu');
+
+    searchSuggestionsDisplay.forEach(box => {
+        box.innerHTML = '';
+        box.style.display = 'none';
+    })
 })
 
 closeMenuBtn.addEventListener('click', () => {
@@ -71,6 +76,14 @@ locationSearchBar.addEventListener('keyup', async function() {
 
 });
 
+// Remove previous search location suggestions after user type more words
+locationSearchBar.addEventListener('keydown', () => {
+    searchSuggestionsDisplay.forEach(box => {
+        box.innerHTML = '';
+        box.style.display = 'none';
+    })
+})
+
 // Display desired location weather info when user searched for a particular location
 searchSubmitBtn.addEventListener('click', async function() {
 
@@ -89,16 +102,16 @@ searchSubmitBtn.addEventListener('click', async function() {
 
 // Output location search result when user clicked on a location recommedation box
 searchSuggestionsDisplay.forEach(box => {
-    box.addEventListener('click', () => {
+    box.addEventListener('click', async () => {
         locationSearchBar.value = box.firstChild.textContent;
-        updateLocationWeather(box);
+        await updateLocationWeather(box.firstChild);
         setTimeout(() => {searchMenu.classList.remove('active-menu')}, 800);
         locationSearchBar.value = '';
     })
 })
 
 // Update location weather info every 30 secs
-setInterval(updateLocationWeather(currentLocation), 30000);
+setInterval(async () => {await updateLocationWeather(currentLocation)}, 30000);
 
 // Close the loading page after the current weather information has rendered
 function closeLoadingPage() {
@@ -165,6 +178,8 @@ async function displayLocationWeather(latitude, longitude) {
     const oneCallInfoReponse = await fetch(oneCallAPI, {mode: 'cors'});
 
     const oneCallInfo = await oneCallInfoReponse.json();
+
+    console.log(currentWeatherInfo);
 
     // Display current weather information
             
