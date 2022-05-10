@@ -127,7 +127,7 @@ function closeLoadingPage() {
 // Find all related city/country list based on search value
 async function findLocationName(searchValue) {
 
-    const geocodingAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${searchValue}&limit=5&appid=ec021a840e27b53a39dd9bb4563c0c3c`;
+    const geocodingAPI = `https://api.openweathermap.org/geo/1.0/direct?q=${searchValue}&limit=5&appid=ec021a840e27b53a39dd9bb4563c0c3c`;
 
     const reponse = await fetch(geocodingAPI, {mode: 'cors'});
 
@@ -152,7 +152,7 @@ async function findLocationName(searchValue) {
 // Convert the location user searched to Geographical Coordinates
 async function convertLocationNameToGeoCoordinates(cityName, countryName) {
 
-    const geocodingAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${countryName}&limit=1&appid=ec021a840e27b53a39dd9bb4563c0c3c`;
+    const geocodingAPI = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${countryName}&limit=1&appid=ec021a840e27b53a39dd9bb4563c0c3c`;
     
     const reponse = await fetch(geocodingAPI, {mode: 'cors'});
     

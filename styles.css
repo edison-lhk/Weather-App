@@ -238,10 +238,14 @@ input[type="search"]::-webkit-search-results-decoration {
     color: #E7E7EB;
 }
 
+.detailed-weather-section > .container > *:not(:last-child){
+    width: 80vw;
+}
+
 .detailed-weather-section .forecast-box-container {
-    width: 70vw;
+    width: calc(80vw - 60px);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
     margin-top: 30px;
@@ -272,7 +276,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .current-weather-highlights-display .current-weather-highlights-container {
     width: 80vw;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(328px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-items: center;
     gap: 50px;
     margin-top: 50px;
@@ -368,4 +372,12 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 @media only screen and (min-width: 800px) {
+
+    .detailed-weather-section .forecast-box-container {
+        padding: 30px 0;
+    }
+
+    .current-weather-highlights-display .current-weather-highlights-container {
+        justify-items: start;    
+    }
 }
