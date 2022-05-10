@@ -66,7 +66,7 @@ locationSearchBar.addEventListener('keyup', async function() {
             box.innerHTML = '';
             box.style.display = 'none';
         })
-        findLocationName(locationSearchBar.value);
+        findLocationName(locationSearchBar.value.trim());
     } else {
         searchSuggestionsDisplay.forEach(box => {
             box.innerHTML = '';
@@ -93,7 +93,10 @@ searchSubmitBtn.addEventListener('click', async function() {
         [latitude, longitude] = await convertLocationNameToGeoCoordinates(locationSearchBar.value.trim());
         displayLocationWeather(latitude, longitude);
         locationSearchBar.value = '';
-        setTimeout(() => {searchMenu.classList.remove('active-menu')}, 800);
+        setTimeout(() => {
+            searchMenu.classList.remove('active-menu');
+            window.scrollTo(0, 0);
+        }, 800);
     } else {
         return;
     }
@@ -135,11 +138,11 @@ async function findLocationName(searchValue) {
 
     for (let i = 0; i < locationInfo.length; i++) {
 
-        locationValue = document.createElement('p');
+        const locationValue = document.createElement('p');
         locationValue.style.cssText = 'font-size: 16px;';
         locationValue.textContent = `${locationInfo[i].name}, ${locationInfo[i].country}`;
 
-        locationIcon = document.createElement('span');
+        const locationIcon = document.createElement('span');
         locationIcon.classList.add('material-icons');
         locationIcon.textContent = 'navigate_next';
 
@@ -178,8 +181,6 @@ async function displayLocationWeather(latitude, longitude) {
     const oneCallInfoReponse = await fetch(oneCallAPI, {mode: 'cors'});
 
     const oneCallInfo = await oneCallInfoReponse.json();
-
-    console.log(currentWeatherInfo);
 
     // Display current weather information
             
@@ -229,6 +230,7 @@ function displayCurrentLocationWeather() {
             displayLocationWeather(latitude, longitude);
         })
     }
+
 }
 
 // Update the location weather info
