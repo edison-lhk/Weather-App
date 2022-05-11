@@ -207,7 +207,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .search-menu-container .search-location-suggestions-container {
-    width: calc(60vw + 15px + 110px);
+    width: calc(60vw + 15px + 115px);
     margin-top: 50px;
     display: flex;
     flex-direction: column;
@@ -386,6 +386,25 @@ input[type="search"]::-webkit-search-results-decoration {
         width: calc(100vw - 459px);
         height: 100vh;
         overflow-y: auto;
+    }
+
+    .current-weather-section .search-menu-container {
+        width: 420px;
+        right: auto;
+        left: 0;
+    }
+
+    .search-menu-container .search-bar-container {
+        margin-left: 0;
+    }
+
+    .search-menu-container .search-bar {
+        width: 278px;
+    }
+
+    .search-menu-container .search-location-suggestions-container {
+        width: 405px;
+        margin-left: -13px;
     }
 
     .detailed-weather-section > .container > *:not(:last-child) {
