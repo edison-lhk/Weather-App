@@ -45,13 +45,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
+    padding: 15px 40px 15px 40px;
     height: calc(10vh - 32px);
+    margin-top: 27px;
 }
 
 .location-bar > .location-search-btn {
-    width: 161px;
-    height: 40px;
+    width: 160px;
+    height: 45px;
     background-color: #6e707a;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     color: #E7E7EB;
@@ -82,14 +83,14 @@ body {
 }
 
 .current-weather-display > #current-weather-icon {
-    margin-top: -20px;
+    margin-top: -30px;
 }
 
 .current-temperature-display {
     display: flex;
     align-items: center;
     margin-bottom: -75px;
-    margin-top: -70px;
+    margin-top: -140px;
 }
 
 .current-temperature-display > h1 {
@@ -104,7 +105,7 @@ body {
 
 .current-weather-display > p {
     font-size: 20px;
-    margin-top: -40px;
+    margin-top: -45px;
 }
 
 .current-weather-display > .temperature-description {
@@ -116,15 +117,14 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: -40px;
+    margin-top: -50px;
 }
 
 .current-location-display {
     display: flex;
     align-items: center;
     gap: 3px;
-    margin-top: -50px;
-    margin-bottom: 30px;
+    margin-top: -60px;
 }
 
 .search-menu-container {
@@ -393,7 +393,7 @@ input[type="search"]::-webkit-search-results-decoration {
     }
 
     .detailed-weather-section .forecast-box-container {
-        padding: 30px 0;
+        padding: 10px 0;
         margin-bottom: 20px;
         width: 100%;
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -402,5 +402,6 @@ input[type="search"]::-webkit-search-results-decoration {
     .current-weather-highlights-display .current-weather-highlights-container {
         justify-items: start;    
         width: 100%;
+        margin-top: 40px;
     }
 }
