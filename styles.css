@@ -12,7 +12,7 @@ body {
 
 .wrapper {
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .preloader {
@@ -60,10 +60,6 @@ body {
     font-size: 16px;
 }
 
-.location-bar > #location-search::placeholder {
-    color: #E7E7EB;
-    text-align: center;
-}
 
 .location-bar > .material-icons {
     color: #E7E7EB;
@@ -72,6 +68,11 @@ body {
     border: 10px solid #6e707a;
     cursor: pointer;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.location-bar > *:hover {
+    background-color: #8c8c8e;
+    border-color: #8c8c8e;
 }
 
 .current-weather-section .current-weather-display {
@@ -243,6 +244,49 @@ input[type="search"]::-webkit-search-results-decoration {
     width: 80vw;
 }
 
+.detailed-weather-section .temperature-unit-change-container {
+    display: flex;
+    justify-content: end;
+    gap: 15px;
+    margin-top: -17px;
+    margin-bottom: 20px;
+}
+
+.temperature-unit-change-container > * {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temperature-unit-change-container > .degree-celsius-icon {
+    background-color: #E7E7EB;
+    border: 10px solid #E7E7EB;
+    color: #110e3c;
+}
+
+.temperature-unit-change-container .degree-fahrenheit-icon {
+    background-color: #6e707a;
+    border: 10px solid #6e707a;
+    color: #E7E7EB;
+}
+
+/*.temperature-unit-change-container > *:hover {
+    background-color: #8c8c8e;
+    border-color: #8c8c8e;
+}*/
+
+.temperature-unit-change-container > * > p {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
 .detailed-weather-section .forecast-box-container {
     width: calc(80vw - 60px);
     display: grid;
@@ -379,17 +423,18 @@ input[type="search"]::-webkit-search-results-decoration {
     }
 
     .wrapper > .current-weather-section {
-        width: 459px;
+        width: 485px;
     }
 
     .wrapper > .detailed-weather-section{
-        width: calc(100vw - 459px);
+        width: calc(100vw - 490px);
         height: 100vh;
         overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .current-weather-section .search-menu-container {
-        width: 420px;
+        width: 455px;
         right: auto;
         left: 0;
     }
@@ -399,7 +444,11 @@ input[type="search"]::-webkit-search-results-decoration {
     }
 
     .search-menu-container .search-bar {
-        width: 278px;
+        width: 275px;
+    }
+
+    .search-menu-container .search-bar > #location-search{
+        width: 200px;
     }
 
     .search-menu-container .search-location-suggestions-container {
@@ -408,7 +457,7 @@ input[type="search"]::-webkit-search-results-decoration {
     }
 
     .detailed-weather-section > .container > *:not(:last-child) {
-        width: calc(100vw - 630px);
+        width: calc(100vw - 620px);
     }
 
     .detailed-weather-section .forecast-box-container {

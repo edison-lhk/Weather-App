@@ -4,6 +4,7 @@ const openMenuBtn = document.querySelector('button.location-search-btn');
 const currentLocationBtn = document.querySelector('.location-bar > .material-icons');
 const currentWeatherIcon = document.querySelector('canvas#current-weather-icon');
 const currentTemp = document.querySelector('.temperature-degrees');
+const currentTempUnit = document.querySelector('.current-temperature-display > span');
 const currentFeelsLikeTemp = document.querySelector('.feels-like-temperature');
 const currentTempDescription = document.querySelector('.current-weather-section .temperature-description')
 const currentDate = document.querySelector('.current-date')
@@ -18,11 +19,16 @@ const searchSuggestionsContainer = document.querySelector('.search-location-sugg
 const searchSuggestionsDisplay = Array.from(document.querySelectorAll('.search-location-suggestions'));
 
 // One Week Forecast Weather Section
+const degreeCelsiusIcon = document.querySelector('.degree-celsius-icon');
+const degreeFahrenheitIcon = document.querySelector('.degree-fahrenheit-icon');
+let temperatureUnitState = 'Degree Celsius';
 const forecastBoxes = Array.from(document.querySelectorAll('.forecast-box'));
 const forecastBoxesDate = Array.from(document.querySelectorAll('.forecast-box > .date'));
 const forecastBoxesIcon = Array.from(document.querySelectorAll('.forecast-box > #forecast-weather-icon'));
 const forecastBoxesHighestTemp = Array.from(document.querySelectorAll('.highest-temperature > .temperature-degrees'));
+const forecastBoxesHighestTempUnit = Array.from(document.querySelectorAll('.highest-temperature > span'));
 const forecastBoxesLowestTemp = Array.from(document.querySelectorAll('.lowest-temperature > .temperature-degrees'));
+const forecastBoxesLowestTempUnit = Array.from(document.querySelectorAll('.lowest-temperature > span'));
 
 // Current Weather Highlights Section 
 const windStatusBoxValue = document.querySelector('.wind-status-value');
@@ -38,10 +44,8 @@ window.addEventListener('load', function() {
     closeLoadingPage();
 });
 
-
 // Display user's location weather info when user clicked on the current location button
 currentLocationBtn.addEventListener('click', displayCurrentLocationWeather);
-
 
 // Open and close search menu
 openMenuBtn.addEventListener('click', () => {
@@ -111,6 +115,29 @@ searchSuggestionsDisplay.forEach(box => {
         setTimeout(() => {searchMenu.classList.remove('active-menu')}, 800);
         locationSearchBar.value = '';
     })
+})
+
+// Switch between Degree Celsius & Degree Fahrenheit 
+degreeCelsiusIcon.addEventListener('click', () => {
+    if (temperatureUnitState != 'Degree Celsius') {
+        degreeCelsiusIcon.style.cssText = 'background-color: #E7E7EB; border: 10px solid #E7E7EB; color: #110E3C';
+        degreeFahrenheitIcon.style.cssText = 'background-color: #6E707A; border: 10px solid #6E707A; color: #E7E7EB';
+        temperatureUnitState = 'Degree Celsius';
+        switchTemperatureUnit();
+    } else {
+        return;
+    }
+})
+
+degreeFahrenheitIcon.addEventListener('click', () => {
+    if (temperatureUnitState != 'Degree Fahrenheit') {
+        degreeFahrenheitIcon.style.cssText = 'background-color: #E7E7EB; border: 10px solid #E7E7EB; color: #110E3C';
+        degreeCelsiusIcon.style.cssText = 'background-color: #6E707A; border: 10px solid #6E707A; color: #E7E7EB';
+        temperatureUnitState = 'Degree Fahrenheit';
+        switchTemperatureUnit();
+    } else {
+        return;
+    }
 })
 
 // Update location weather info every 30 secs
@@ -239,6 +266,43 @@ async function updateLocationWeather(location) {
     [cityName, countryName] = location.textContent.split(', ');
     [latitude, longitude] = await convertLocationNameToGeoCoordinates(cityName, countryName);
     displayLocationWeather(latitude, longitude);
+}
+
+// Switch temperature between Degree Celsius & Degree Fahrenheit 
+function switchTemperatureUnit() {
+    if (temperatureUnitState == 'Degree Celsius') {
+        currentTemp.textContent = Math.round((currentTemp.textContent - 32) / 1.8);
+        currentTempUnit.textContent = '°C';
+        currentFeelsLikeTemp.textContent = Math.round((currentFeelsLikeTemp.textContent - 32) / 1.8);
+        forecastBoxesHighestTemp.forEach(temp => {
+            temp.textContent = Math.round((temp.textContent - 32) / 1.8);
+        })
+        forecastBoxesHighestTempUnit.forEach(unit => {
+            unit.textContent = '°C';
+        });
+        forecastBoxesLowestTemp.forEach(temp => {
+            temp.textContent = Math.round((temp.textContent - 32) / 1.8);
+        })
+        forecastBoxesLowestTempUnit.forEach(unit => {
+            unit.textContent = '°C';
+        });
+    } else if (temperatureUnitState == 'Degree Fahrenheit') {
+        currentTemp.textContent = Math.round(currentTemp.textContent * 1.8 + 32);
+        currentTempUnit.textContent = '°F';
+        currentFeelsLikeTemp.textContent = Math.round(currentFeelsLikeTemp.textContent * 1.8 + 32);
+        forecastBoxesHighestTemp.forEach(temp => {
+            temp.textContent = Math.round(temp.textContent * 1.8 + 32);
+        })
+        forecastBoxesHighestTempUnit.forEach(unit => {
+            unit.textContent = '°F';
+        });
+        forecastBoxesLowestTemp.forEach(temp => {
+            temp.textContent = Math.round(temp.textContent * 1.8 + 32);
+        })
+        forecastBoxesLowestTempUnit.forEach(unit => {
+            unit.textContent = '°F';
+        });
+    }
 }
 
 class Icon {
