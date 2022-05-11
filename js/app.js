@@ -141,7 +141,7 @@ degreeFahrenheitIcon.addEventListener('click', () => {
 })
 
 // Update location weather info every 30 secs
-setInterval(async () => {await updateLocationWeather(currentLocation)}, 30000);
+setInterval(async () => {await updateLocationWeather(currentLocation)}, 60000);
 
 // Close the loading page after the current weather information has rendered
 function closeLoadingPage() {
@@ -210,10 +210,23 @@ async function displayLocationWeather(latitude, longitude) {
     const oneCallInfo = await oneCallInfoReponse.json();
 
     // Display current weather information
-            
-    currentTemp.textContent = Math.round(currentWeatherInfo.main.temp);
+    if (temperatureUnitState == 'Degree Celsius') {
 
-    currentFeelsLikeTemp.textContent = Math.round(currentWeatherInfo.main.feels_like);
+        currentTemp.textContent = Math.round(currentWeatherInfo.main.temp);
+
+        currentTempUnit.textContent = '°C';
+
+        currentFeelsLikeTemp.textContent = Math.round(currentWeatherInfo.main.feels_like);
+
+    } else if (temperatureUnitState == 'Degree Fahrenheit') {
+
+        currentTemp.textContent = Math.round(currentWeatherInfo.main.temp * 1.8 + 32);
+
+        currentTempUnit.textContent = '°F';
+
+        currentFeelsLikeTemp.textContent = Math.round(currentWeatherInfo.main.feels_like * 1.8 + 32);
+
+    }
 
     currentTempDescription.textContent = currentWeatherInfo.weather[0].main;
 
@@ -228,10 +241,27 @@ async function displayLocationWeather(latitude, longitude) {
     // Display 1 week forecast weather information
 
     for (let i = 0; i < forecastBoxes.length; i++) {
+
         forecastBoxesDate[i].textContent = new Date(currentGMTTimzone.getTime() + oneCallInfo.timezone_offset * 1000 + (i + 1) * 1000 * 60 * 60 *24).toUTCString().slice(0, 11);
         new Icon(forecastBoxesIcon[i], oneCallInfo.daily[i + 1].weather[0].icon).setIcon();
-        forecastBoxesHighestTemp[i].textContent = Math.round(oneCallInfo.daily[i + 1].temp.max);
-        forecastBoxesLowestTemp[i].textContent = Math.round(oneCallInfo.daily[i + 1].temp.min);
+
+        if (temperatureUnitState == 'Degree Celsius') {
+
+            forecastBoxesHighestTemp[i].textContent = Math.round(oneCallInfo.daily[i + 1].temp.max);
+            forecastBoxesHighestTempUnit[i].textContent = '°C';
+
+            forecastBoxesLowestTemp[i].textContent = Math.round(oneCallInfo.daily[i + 1].temp.min);
+            forecastBoxesLowestTempUnit[i].textContent = '°C';
+
+        } else if (temperatureUnitState == 'Degree Fahrenheit') {
+
+            forecastBoxesHighestTemp[i].textContent = Math.round(oneCallInfo.daily[i + 1].temp.max * 1.8 + 32);
+            forecastBoxesHighestTempUnit[i].textContent = '°F';
+
+            forecastBoxesLowestTemp[i].textContent = Math.round(oneCallInfo.daily[i + 1].temp.min * 1.8 + 32);
+            forecastBoxesLowestTempUnit[i].textContent = '°F';
+
+        }
     }
 
     // Display today's weather highlights (wind status, humidity, etc) for the respective location
