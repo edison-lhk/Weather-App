@@ -421,7 +421,7 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-top: 60px;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 950px) {
 
     .wrapper {
         display: flex;
@@ -472,9 +472,16 @@ input[type="search"]::-webkit-search-results-decoration {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     }
 
-    .current-weather-highlights-display .current-weather-highlights-container {
-        justify-items: start;    
+    .current-weather-highlights-display .current-weather-highlights-container {   
         width: 100%;
         margin-top: 40px;
     }
+}
+
+@media only screen and (min-width: 1325px) {
+
+    .current-weather-highlights-display .current-weather-highlights-container {
+        justify-items: start;
+    }
+
 }
