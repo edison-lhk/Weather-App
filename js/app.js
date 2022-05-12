@@ -376,7 +376,7 @@ class Icon {
 
     setIcon() {
         this.iconType = this.convertIconType();
-        const skycons = new Skycons({"monochrome": false});
+        const skycons = new Skycons({"monochrome": false, "colors": {"moon": "white", "cloud": "white", "light_cloud": "white"}});
         skycons.add(this.iconDom, Skycons[`${this.iconType}`]);
         skycons.play();
     } 
