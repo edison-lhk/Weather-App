@@ -33,6 +33,7 @@ const forecastBoxesLowestTempUnit = Array.from(document.querySelectorAll('.lowes
 // Current Weather Highlights Section 
 const windStatusBoxValue = document.querySelector('.wind-status-value');
 const windStatusBoxDirectionValue = document.querySelector('.wind-direction-value');
+const windStatusBoxDirectionIcon = document.querySelector('.wind-direction-icon');
 const humidityBoxValue = document.querySelector('.humidity-value');
 const humidityBoxPercentageBar = document.querySelector('.percentage-value');
 const visibilityBoxValue = document.querySelector('.visibility-value');
@@ -267,7 +268,8 @@ async function displayLocationWeather(latitude, longitude) {
     // Display today's weather highlights (wind status, humidity, etc) for the respective location
 
     windStatusBoxValue.textContent = (currentWeatherInfo.wind.speed * 2.23693629).toFixed(1);
-    windStatusBoxDirectionValue.textContent = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"][(currentWeatherInfo.wind.deg / 22.5).toFixed(0)];
+    windStatusBoxDirectionValue.textContent = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"][(Math.round(currentWeatherInfo.wind.deg / 22.5))];
+    windStatusBoxDirectionIcon.style.transform = `rotate(${Math.round(currentWeatherInfo.wind.deg / 22.5) * 22.5}deg)`;
 
     humidityBoxValue.textContent = currentWeatherInfo.main.humidity;
     humidityBoxPercentageBar.style.width = `${currentWeatherInfo.main.humidity}%`; 

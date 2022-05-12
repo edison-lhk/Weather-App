@@ -39,6 +39,7 @@ body {
 .current-weather-section .current-weather-container {
     order: 2;
     width: 100%;
+    background: url(images/Cloud-background.png) no-repeat 50% 15%;
 }
 
 .location-bar {
@@ -276,11 +277,6 @@ input[type="search"]::-webkit-search-results-decoration {
     color: #E7E7EB;
 }
 
-/*.temperature-unit-change-container > *:hover {
-    background-color: #8c8c8e;
-    border-color: #8c8c8e;
-}*/
-
 .temperature-unit-change-container > * > p {
     font-weight: bold;
     font-size: 18px;
@@ -321,7 +317,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .current-weather-highlights-display .current-weather-highlights-container {
     width: 80vw;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(328px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(80%, 328px), 1fr));
     justify-items: center;
     gap: 50px;
     margin-top: 50px;
@@ -331,12 +327,12 @@ input[type="search"]::-webkit-search-results-decoration {
     background-color: #1e213a;
     text-align: center;
     padding: 30px;
-    width: 328px;
+    width: min(80%, 328px);
 }
 
 .highlights-box > p {
     margin: 0;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: normal;
 }
 
@@ -360,9 +356,18 @@ input[type="search"]::-webkit-search-results-decoration {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 15px;
     font-size: 16px;
     font-weight: normal;
+}
+
+.wind-direction-container > .material-icons {
+    font-size: 18px;
+    color: #E7E7EB;
+    background-color: #6e707a;
+    border-radius: 50%;
+    border: 7px solid #6e707a;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .humidity-box {
