@@ -284,13 +284,12 @@ input[type="search"]::-webkit-search-results-decoration {
 
 
 .detailed-weather-section .forecast-box-container {
-    width: calc(80vw - 60px);
+    width: 80vw;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
-    margin-top: 30px;
-    padding: 30px;
+    margin-top: 50px;
 }
 
 .forecast-box-container .forecast-box {
@@ -421,13 +420,6 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-top: 60px;
 }
 
-@media only screen and (min-width: 415px) {
-
-    .detailed-weather-section .forecast-box-container {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    }
-}
-
 @media only screen and (min-width: 950px) {
 
     .wrapper {
@@ -476,6 +468,7 @@ input[type="search"]::-webkit-search-results-decoration {
         padding: 10px 0;
         margin-bottom: 20px;
         width: 100%;
+        margin-top: 30px;
     }
 
     .current-weather-highlights-display .current-weather-highlights-container {   
