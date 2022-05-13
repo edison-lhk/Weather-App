@@ -204,11 +204,11 @@ async function displayLocationWeather(latitude, longitude) {
             
     const currentWeatherInfo = await currentWeatherInfoReponse.json();
 
-    const oneCallAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=ec021a840e27b53a39dd9bb4563c0c3c&units=metric`;
+    /*const oneCallAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=ec021a840e27b53a39dd9bb4563c0c3c&units=metric`;
 
     const oneCallInfoReponse = await fetch(oneCallAPI, {mode: 'cors'});
 
-    const oneCallInfo = await oneCallInfoReponse.json();
+    const oneCallInfo = await oneCallInfoReponse.json();*/
 
     // Display current weather information
     if (temperatureUnitState == 'Degree Celsius') {
@@ -233,7 +233,7 @@ async function displayLocationWeather(latitude, longitude) {
 
     const currentGMTTimzone = new Date();
 
-    currentDate.textContent = new Date(currentGMTTimzone.getTime() + oneCallInfo.timezone_offset * 1000).toUTCString().slice(0, 11);
+    /*currentDate.textContent = new Date(currentGMTTimzone.getTime() + oneCallInfo.timezone_offset * 1000).toUTCString().slice(0, 11);*/
 
     currentLocation.textContent = currentWeatherInfo.name + ', ' + currentWeatherInfo.sys.country;
 
@@ -241,7 +241,7 @@ async function displayLocationWeather(latitude, longitude) {
 
     // Display 1 week forecast weather information
 
-    for (let i = 0; i < forecastBoxes.length; i++) {
+    /*for (let i = 0; i < forecastBoxes.length; i++) {
 
         forecastBoxesDate[i].textContent = new Date(currentGMTTimzone.getTime() + oneCallInfo.timezone_offset * 1000 + (i + 1) * 1000 * 60 * 60 *24).toUTCString().slice(0, 11);
         new Icon(forecastBoxesIcon[i], oneCallInfo.daily[i + 1].weather[0].icon).setIcon();
@@ -263,7 +263,7 @@ async function displayLocationWeather(latitude, longitude) {
             forecastBoxesLowestTempUnit[i].textContent = '°F';
 
         }
-    }
+    }*/
 
     // Display today's weather highlights (wind status, humidity, etc) for the respective location
 
