@@ -1,3 +1,5 @@
+import {Skycons} from './skycons';
+
 // Current Weather Section
 const preloader = document.querySelector('.preloader');
 const openMenuBtn = document.querySelector('button.location-search-btn');
