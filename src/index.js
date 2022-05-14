@@ -1,5 +1,3 @@
-import {Skycons} from './skycons';
-
 // Current Weather Section
 const preloader = document.querySelector('.preloader');
 const openMenuBtn = document.querySelector('button.location-search-btn');
@@ -8,8 +6,8 @@ const currentWeatherIcon = document.querySelector('canvas#current-weather-icon')
 const currentTemp = document.querySelector('.temperature-degrees');
 const currentTempUnit = document.querySelector('.current-temperature-display > span');
 const currentFeelsLikeTemp = document.querySelector('.feels-like-temperature');
-const currentTempDescription = document.querySelector('.current-weather-section .temperature-description')
-const currentDate = document.querySelector('.current-date')
+const currentTempDescription = document.querySelector('.current-weather-section .temperature-description');
+const currentDate = document.querySelector('.current-date');
 const currentLocation = document.querySelector('.current-location');
 
 // Search Menu Section
@@ -17,7 +15,6 @@ const searchMenu = document.querySelector('.search-menu-container');
 const closeMenuBtn = document.querySelector('.close-menu-btn');
 const locationSearchBar = document.querySelector('input#location-search');
 const searchSubmitBtn = document.querySelector('button.submit-search');
-const searchSuggestionsContainer = document.querySelector('.search-location-suggestions-container');
 const searchSuggestionsDisplay = Array.from(document.querySelectorAll('.search-location-suggestions'));
 
 // One Week Forecast Weather Section
@@ -378,8 +375,8 @@ class Icon {
 
     setIcon() {
         this.iconType = this.convertIconType();
-        const skycons = new Skycons({"monochrome": false, "colors": {"moon": "white", "cloud": "white", "light_cloud": "white"}});
+        const skycons = new Skycons({"resizeClear": true, "monochrome": false, "colors": {"moon": "gray", "cloud": "white", "light_cloud": "white"}});
         skycons.add(this.iconDom, Skycons[`${this.iconType}`]);
         skycons.play();
-    } 
+    }
 }
