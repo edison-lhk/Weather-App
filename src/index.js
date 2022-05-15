@@ -80,14 +80,6 @@ locationSearchBar.addEventListener('keyup', async function() {
 
 });
 
-// Remove previous search location suggestions after user type more words
-locationSearchBar.addEventListener('keydown', () => {
-    searchSuggestionsDisplay.forEach(box => {
-        box.innerHTML = '';
-        box.style.display = 'none';
-    })
-})
-
 // Display desired location weather info when user searched for a particular location
 searchSubmitBtn.addEventListener('click', async function() {
 
@@ -112,8 +104,11 @@ searchSuggestionsDisplay.forEach(box => {
     box.addEventListener('click', async () => {
         locationSearchBar.value = box.firstChild.textContent;
         await updateLocationWeather(box.firstChild);
-        setTimeout(() => {searchMenu.classList.remove('active-menu')}, 800);
         locationSearchBar.value = '';
+        setTimeout(() => {
+            searchMenu.classList.remove('active-menu');
+            window.scrollTo(0, 0);
+        }, 800);
     })
 })
 
@@ -165,17 +160,10 @@ async function findLocationName(searchValue) {
 
     for (let i = 0; i < locationInfo.length; i++) {
 
-        const locationValue = document.createElement('p');
-        locationValue.style.cssText = 'font-size: 16px;';
-        locationValue.textContent = `${locationInfo[i].name}, ${locationInfo[i].country}`;
-
-        const locationIcon = document.createElement('span');
-        locationIcon.classList.add('material-icons');
-        locationIcon.textContent = 'navigate_next';
-
-        searchSuggestionsDisplay[i].appendChild(locationValue);
-        searchSuggestionsDisplay[i].appendChild(locationIcon);
+        const searchSuggestionsHTML = `<p style="font-size: 16px;">${locationInfo[i].name}, ${locationInfo[i].country}</p> <span class="material-icons">navigate_next</span>`;
+        searchSuggestionsDisplay[i].innerHTML = searchSuggestionsHTML;
         searchSuggestionsDisplay[i].style.display = 'flex';
+        
     }
 }
 
