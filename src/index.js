@@ -70,7 +70,7 @@ locationSearchBar.addEventListener('keyup', async function() {
             box.innerHTML = '';
             box.style.display = 'none';
         })
-        findLocationName(locationSearchBar.value.trim());
+        await findLocationName(locationSearchBar.value.trim());
     } else {
         searchSuggestionsDisplay.forEach(box => {
             box.innerHTML = '';
@@ -95,7 +95,7 @@ searchSubmitBtn.addEventListener('click', async function() {
         let latitude;
         let longitude;
         [latitude, longitude] = await convertLocationNameToGeoCoordinates(locationSearchBar.value.trim());
-        displayLocationWeather(latitude, longitude);
+        await displayLocationWeather(latitude, longitude);
         locationSearchBar.value = '';
         setTimeout(() => {
             searchMenu.classList.remove('active-menu');
@@ -150,7 +150,7 @@ function closeLoadingPage() {
         document.documentElement.style.scrollBehavior = "auto";
         window.scrollTo(0, 0);
         preloader.style.display = "none";
-    }, 4000);
+    }, 1000);
 
 }
 
@@ -282,10 +282,10 @@ async function displayLocationWeather(latitude, longitude) {
 function displayCurrentLocationWeather() {
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
+        navigator.geolocation.getCurrentPosition(async position => {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            displayLocationWeather(latitude, longitude);
+            await displayLocationWeather(latitude, longitude);
         })
     }
 
