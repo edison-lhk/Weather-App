@@ -13,6 +13,7 @@ const currentLocation = document.querySelector('.current-location');
 // Search Menu Section
 const searchMenu = document.querySelector('.search-menu-container');
 const closeMenuBtn = document.querySelector('.close-menu-btn');
+const locationSearchForm = document.querySelector('form.search-bar-container');
 const locationSearchBar = document.querySelector('input#location-search');
 const searchSubmitBtn = document.querySelector('button.submit-search');
 const searchSuggestionsDisplay = Array.from(document.querySelectorAll('.search-location-suggestions'));
@@ -63,25 +64,30 @@ closeMenuBtn.addEventListener('click', () => {
 })
 
 // Display search location suggestions when user type sth in the search bar
-locationSearchBar.addEventListener('keyup', async function() {
+locationSearchBar.addEventListener('keyup', async function(e) {
 
-    if (locationSearchBar.value != '') {
-        searchSuggestionsDisplay.forEach(box => {
-            box.innerHTML = '';
-            box.style.display = 'none';
-        })
-        await findLocationName(locationSearchBar.value.trim());
+    if (e.key != "Enter") {
+        if (locationSearchBar.value != '') {
+            searchSuggestionsDisplay.forEach(box => {
+                box.innerHTML = '';
+                box.style.display = 'none';
+            })
+            await findLocationName(locationSearchBar.value.trim());
+        } else {
+            searchSuggestionsDisplay.forEach(box => {
+                box.innerHTML = '';
+                box.style.display = 'none';
+            });
+        }
     } else {
-        searchSuggestionsDisplay.forEach(box => {
-            box.innerHTML = '';
-            box.style.display = 'none';
-        });
+        return;
     }
-
 });
 
-// Display desired location weather info when user searched for a particular location
-searchSubmitBtn.addEventListener('click', async function() {
+// Display desired location weather info when user submit the location form
+locationSearchForm.addEventListener('submit', async function(e) {
+
+    e.preventDefault();
 
     if (locationSearchBar.value != '') {
         let latitude;
@@ -92,11 +98,10 @@ searchSubmitBtn.addEventListener('click', async function() {
         setTimeout(() => {
             searchMenu.classList.remove('active-menu');
             window.scrollTo(0, 0);
-        }, 800);
+        }, 500);
     } else {
         return;
     }
-
 });
 
 // Output location search result when user clicked on a location recommedation box
@@ -108,7 +113,7 @@ searchSuggestionsDisplay.forEach(box => {
         setTimeout(() => {
             searchMenu.classList.remove('active-menu');
             window.scrollTo(0, 0);
-        }, 800);
+        }, 500);
     })
 })
 
@@ -145,7 +150,7 @@ function closeLoadingPage() {
         document.documentElement.style.scrollBehavior = "auto";
         window.scrollTo(0, 0);
         preloader.style.display = "none";
-    }, 1000);
+    }, 3500);
 
 }
 
