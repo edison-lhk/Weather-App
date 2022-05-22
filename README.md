@@ -1,4 +1,4 @@
-<h1 align="center">Weather App :partly_sunny:<h1>
+<h1 align="center">Weather App :partly_sunny:</h1>
 
 <h3 align="center">Design heavily inspired by <a href="https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv">DevChallenges<a></h3>
 
