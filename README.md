@@ -1,8 +1,10 @@
-# Weather App :partly_sunny:
+<h1 align="center">Weather App :partly_sunny:<h1>
 
-<div align="center">Design heavily inspired by <a href="https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv">DevChallenges<a></div>
+<h3 align="center">Design heavily inspired by <a href="https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv">DevChallenges<a></h3>
 
 <img src="screenshot/weather-app-project-image.png" alt="Weather App Display">
+
+## Description:
 
 A weather app that can display the local weather information from the user's current location and timezone, and also the ability to search for any cities' current detailed weather information with timezone offset taken into account.
 
