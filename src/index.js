@@ -279,8 +279,8 @@ function displayCurrentLocationWeather() {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             await displayLocationWeather(latitude, longitude);
-        })
-    }
+        }, async error => await displayLocationWeather(43.6515, -79.3835))
+    };
 
 }
 
